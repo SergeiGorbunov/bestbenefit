@@ -1,7 +1,7 @@
 // src/app/about/page.jsx
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { 
   CheckCircleIcon,
   MapPinIcon,
