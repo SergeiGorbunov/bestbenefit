@@ -55,15 +55,15 @@ const Header = () => {
     </div>
     
     <nav className="h-full flex flex-col items-center justify-center space-y-8">
-      {['Главная', 'Услуги', 'Тарифы', 'О нас', 'Контакты'].map((item, index) => (
+      {[{name:'Главная', href:"/"}, {name:'Услуги', href:"services"}, {name:'О нас', href:"about"}].map((item, index) => (
         <a 
           key={index}
-          href="#" 
+          href={item.href} 
           className={`text-3xl font-bold text-white transform transition-all duration-700 ${isMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}
           style={{ transitionDelay: `${index * 100}ms` }}
           onClick={() => setIsMenuOpen(false)}
         >
-          {item}
+          {item.name}
         </a>
       ))}
       <button className="bg-gradient-to-r from-orange-500 to-orange-700 px-8 py-4 rounded-xl font-bold text-xl mt-8">
