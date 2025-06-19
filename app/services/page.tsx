@@ -1,7 +1,6 @@
 // src/app/services/page.jsx
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { 
   ShoppingCartIcon, 
   MagnifyingGlassIcon, 
@@ -9,7 +8,6 @@ import {
   DocumentMagnifyingGlassIcon,
   ArrowPathIcon,
   BuildingStorefrontIcon,
-  PhoneIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
 
@@ -153,7 +151,7 @@ export default function ServicesPage() {
             Наши <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">услуги</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Полный спектр логистических услуг для вашего бизнеса. От поиска поставщиков до доставки "до двери"
+            Полный спектр логистических услуг для вашего бизнеса. От поиска поставщиков до доставки до двери
           </p>
         </div>
       </section>

@@ -311,7 +311,7 @@ export default function Home() {
                     <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center mr-3">
                       <span className="text-black text-xs">✓</span>
                     </div>
-                    <span>Доставка "до двери"</span>
+   ``                 <span>Доставка до двери</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center mr-3">
