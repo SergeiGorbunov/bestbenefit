@@ -4,13 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { 
   TruckIcon, GlobeAltIcon, BoltIcon, 
-  ChartBarIcon, ShieldCheckIcon, ClockIcon,
-  XMarkIcon, Bars3Icon
-} from '@heroicons/react/24/outline';
+  ChartBarIcon, ShieldCheckIcon, ClockIcon} from '@heroicons/react/24/outline';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dimensions, setDimensions] = useState({
     length: '',
     width: '',
@@ -22,7 +19,7 @@ export default function Home() {
     setIsVisible(true);
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setDimensions(prev => ({ ...prev, [name]: value }));
   };

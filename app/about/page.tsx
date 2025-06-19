@@ -98,7 +98,7 @@ export default function AboutPage() {
                 О компании <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">BEST BENEFIT</span>
               </h1>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl">
-                Ваш надежный партнер в логистике из Китая с 2014 года. Мы специализируемся на комплексных решениях "под ключ" для бизнеса.
+                Ваш надежный партнер в логистике из Китая с 2014 года. Мы специализируемся на комплексных решениях под ключ для бизнеса.
               </p>
               
               <div className="flex flex-wrap gap-4 mb-10">
@@ -269,9 +269,7 @@ export default function AboutPage() {
                   <div className="relative">
                     <div className="absolute -left-11 w-6 h-6 bg-orange-500 rounded-full"></div>
                     <h3 className="text-xl font-bold mb-2">Премии и награды</h3>
-                    <p className="text-gray-400">
-                      Лучший логистический оператор 2020 и 2022 года по версии "Логистика Китай-Россия". Рейтинг 4.9 на независимых платформах.
-                    </p>
+
                   </div>
                 </div>
               )}
