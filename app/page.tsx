@@ -7,6 +7,7 @@ import {
   ChartBarIcon, ShieldCheckIcon, ClockIcon,
   XMarkIcon} from '@heroicons/react/24/outline';
 import OrderForm from './(components)/OrderForm';
+import Link from 'next/link';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -89,9 +90,9 @@ export default function Home() {
                 <button onClick={() => openFormWithTariff(null)} className="bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/30">
                   Рассчитать стоимость
                 </button>
-                <button className="border-2 border-orange-600 text-orange-400 hover:bg-orange-900/30 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300">
-                  Смотреть кейсы
-                </button>
+                <Link href="services" className="border-2 text-center border-orange-600 text-orange-400 hover:bg-orange-900/30 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300">
+                  Наши услуги
+                </Link>
               </div>
             </div>
             

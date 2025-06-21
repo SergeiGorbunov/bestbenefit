@@ -1,10 +1,25 @@
 'use client'
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Добавлен useEffect
+import OrderForm from "./OrderForm"; // Импортируем компонент формы
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false); // Состояние для модального окна
+
+    // Блокировка прокрутки страницы при открытых модальных окнах
+    useEffect(() => {
+        if (isMenuOpen || isFormOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isMenuOpen, isFormOpen]);
 
     return (
     <>
@@ -25,7 +40,10 @@ const Header = () => {
       </nav>
       
       <div className="flex items-center gap-4">
-        <button className="hidden md:block bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/20">
+        <button 
+          className="hidden md:block bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/20"
+          onClick={() => setIsFormOpen(true)} // Открываем форму
+        >
           Рассчитать
         </button>
         
@@ -43,7 +61,6 @@ const Header = () => {
     </header>
     
     {/* Мобильное меню */}
-    
     <div className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-xl transition-all duration-700 ease-in-out ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
     <div className="absolute top-4 right-4">
       <button 
@@ -66,10 +83,44 @@ const Header = () => {
           {item.name}
         </a>
       ))}
-      <button className="bg-gradient-to-r from-orange-500 to-orange-700 px-8 py-4 rounded-xl font-bold text-xl mt-8">
+      <button 
+        className="bg-gradient-to-r from-orange-500 to-orange-700 px-8 py-4 rounded-xl font-bold text-xl mt-8"
+        onClick={() => {
+          setIsMenuOpen(false);
+          setIsFormOpen(true); // Закрываем меню и открываем форму
+        }}
+      >
         Рассчитать стоимость
       </button>
     </nav>
+    </div>
+    
+    {/* Модальное окно с формой - ИСПРАВЛЕННАЯ ВЕРСИЯ */}
+    <div className={`fixed inset-0 z-50 transition-all duration-700 ${isFormOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+      {/* Затемнение фона */}
+      <div 
+        className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+        onClick={() => setIsFormOpen(false)}
+      ></div>
+      
+      {/* Кнопка закрытия - с увеличенным z-index */}
+      <div className="absolute top-4 right-4 z-[60]">
+        <button 
+          className="w-12 h-12 flex items-center justify-center text-orange-500 bg-black/50 rounded-full backdrop-blur-sm"
+          onClick={() => setIsFormOpen(false)}
+        >
+          <XMarkIcon className="w-8 h-8" />
+        </button>
+      </div>
+      
+      {/* Контейнер с формой с возможностью прокрутки */}
+      <div className="relative z-50 h-full w-full overflow-y-auto py-10 px-4">
+        <div className={`max-w-2xl mx-auto transform transition-all duration-700 ${isFormOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className="pt-16 pb-10"> {/* Добавлен отступ сверху и снизу */}
+            <OrderForm selectedService={"Рассчет"} onClose={() => setIsFormOpen(false)} />
+          </div>
+        </div>
+      </div>
     </div>
     </>
     )

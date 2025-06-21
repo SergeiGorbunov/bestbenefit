@@ -13,9 +13,11 @@ import {
   ChartBarIcon,
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
+import OrderForm from '../(components)/OrderForm';
 
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState('history');
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const advantages = [
     {
@@ -122,9 +124,6 @@ export default function AboutPage() {
                 </div>
               </div>
               
-              <button className="bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/30">
-                Рассчитать стоимость
-              </button>
             </div>
             
             {/* Заготовка под изображение */}
@@ -393,15 +392,17 @@ export default function AboutPage() {
               <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                 Получите бесплатную консультацию и расчет стоимости доставки
               </p>
-              <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-                <input 
-                  type="tel" 
-                  placeholder="Ваш телефон" 
-                  className="flex-grow px-6 py-4 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                />
-                <button className="bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/20">
-                  Получить консультацию
-                </button>
+              <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-6">
+                {!isFormOpen ? (
+                  <button
+                    onClick={() => setIsFormOpen(true)}
+                    className="w-full bg-gradient-to-r from-orange-500 to-orange-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300"
+                  >
+                    Рассчитать стоимость доставки
+                  </button>
+                ) : (
+                  <OrderForm selectedService={"Со страницы о нас"} onClose={() => setIsFormOpen(false)} />
+                )}
               </div>
             </div>
           </div>
