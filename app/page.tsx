@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { 
   TruckIcon, GlobeAltIcon, BoltIcon, 
-  ChartBarIcon, ShieldCheckIcon, ClockIcon} from '@heroicons/react/24/outline';
+  ChartBarIcon, ShieldCheckIcon, ClockIcon,
+  XMarkIcon} from '@heroicons/react/24/outline';
+import OrderForm from './(components)/OrderForm';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +16,41 @@ export default function Home() {
     height: '',
     weight: ''
   });
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<{ title: string; price: string; days: string; } | null>(null);
   
+  const getTariffDetails = (tariffName: string | null) => {
+    if (!tariffName) {
+      return { title: 'Индивидуальный расчет', price: 'По запросу', days: '' };
+    }
+    switch (tariffName) {
+      case 'Эконом':
+        return { title: 'Эконом', price: '$5.90', days: '30-45 дней' };
+      case 'Стандарт':
+        return { title: 'Стандарт', price: '$8.30', days: '18-25 дней' };
+      case 'Экспресс':
+        return { title: 'Экспресс', price: '$12.50', days: '7-12 дней' };
+      default:
+        return { title: tariffName, price: 'По запросу', days: '' };
+    }
+  };
+
+  const openFormWithTariff = (tariffName:string | null) => {
+    // Сбрасываем предыдущий тариф перед открытием
+    setSelectedService(null);
+    setTimeout(() => {
+      setSelectedService(getTariffDetails(tariffName));
+      setIsFormOpen(true);
+      document.body.style.overflow = 'hidden';
+    }, 10);
+  };
+
+  // Функция закрытия формы
+  const closeForm = () => {
+    setIsFormOpen(false);
+    setSelectedService(null);
+    document.body.style.overflow = 'auto';
+  };
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -34,6 +70,9 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
+
+
+
       <section className="relative z-10 pt-40 pb-28">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -47,7 +86,7 @@ export default function Home() {
                 Оптимальные решения для бизнеса с экономией до 40% без потери качества
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/30">
+                <button onClick={() => openFormWithTariff(null)} className="bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-orange-500/30">
                   Рассчитать стоимость
                 </button>
                 <button className="border-2 border-orange-600 text-orange-400 hover:bg-orange-900/30 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300">
@@ -68,7 +107,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Преимущества */}
       <section className="relative z-10 py-20">
         <div className="container mx-auto px-4">
@@ -177,8 +215,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Тарифы */}
-      <section className="relative z-10 py-20">
+            {/* Тарифы */}
+            <section className="relative z-10 py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-bold mb-4">Тарифные планы</h2>
@@ -223,8 +261,11 @@ export default function Home() {
                     <span>Базовое отслеживание</span>
                   </li>
                 </ul>
-                <button className="w-full bg-gray-800 hover:bg-gray-700 py-4 rounded-xl font-medium transition-all">
-                  Выбрать тариф
+                <button 
+                  onClick={() => openFormWithTariff('Эконом')}
+                  className="w-full bg-gray-800 hover:bg-gray-700 py-4 rounded-xl font-medium transition-all"
+                >
+                  Оставить заявку
                 </button>
               </div>
               <div className="bg-black/50 p-4 text-center">
@@ -276,8 +317,11 @@ export default function Home() {
                     <span>Online-трекинг</span>
                   </li>
                 </ul>
-                <button className="w-full bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 py-4 rounded-xl font-bold transition-all">
-                  Выбрать тариф
+                <button 
+                  onClick={() => openFormWithTariff('Стандарт')}
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 py-4 rounded-xl font-bold transition-all"
+                >
+                  Оставить заявку
                 </button>
               </div>
               <div className="bg-black/50 p-4 text-center">
@@ -311,7 +355,7 @@ export default function Home() {
                     <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center mr-3">
                       <span className="text-black text-xs">✓</span>
                     </div>
-   ``                 <span>Доставка до двери</span>
+                    <span>Доставка "до двери"</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center mr-3">
@@ -326,8 +370,11 @@ export default function Home() {
                     <span>Круглосуточная поддержка</span>
                   </li>
                 </ul>
-                <button className="w-full bg-gray-800 hover:bg-gray-700 py-4 rounded-xl font-medium transition-all">
-                  Выбрать тариф
+                <button 
+                  onClick={() => openFormWithTariff('Экспресс')}
+                  className="w-full bg-gray-800 hover:bg-gray-700 py-4 rounded-xl font-medium transition-all"
+                >
+                  Оставить заявку
                 </button>
               </div>
               <div className="bg-black/50 p-4 text-center">
@@ -337,101 +384,25 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="relative z-10 py-28">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-orange-900/30 to-black border border-orange-900/50 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h2 className="text-4xl font-bold mb-6">Рассчитайте стоимость доставки</h2>
-                  <p className="text-xl text-gray-300 mb-8">
-                    Укажите параметры груза и получите точный расчет за 15 минут
-                  </p>
-                  
-                  {/* Заготовка под изображение */}
-                  <div className="relative aspect-video rounded-2xl overflow-hidden hidden lg:block">
-                    <div className="absolute inset-0 bg-orange-500/10 border-2 border-dashed border-orange-500/30 flex items-center justify-center">
-                      {/* <span className="text-orange-500/50 font-mono">Image: Calculator</span> */}
-                      <Image src="/images/calculator.jpg" alt='калькулятор' width={1000} height={1000} />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-gray-400 mb-2">Длина (см)</label>
-                      <input 
-                        type="number" 
-                        name="length"
-                        value={dimensions.length}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                        placeholder="0"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-400 mb-2">Ширина (см)</label>
-                      <input 
-                        type="number" 
-                        name="width"
-                        value={dimensions.width}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                        placeholder="0"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-400 mb-2">Высота (см)</label>
-                      <input 
-                        type="number" 
-                        name="height"
-                        value={dimensions.height}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                        placeholder="0"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-400 mb-2">Вес (кг)</label>
-                      <input 
-                        type="number" 
-                        name="weight"
-                        value={dimensions.weight}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                        placeholder="0"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-gray-400 mb-2">Телефон</label>
-                    <input 
-                      type="tel" 
-                      placeholder="+7 (___) ___-__-__" 
-                      className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                    />
-                  </div>
-                  
-                  <button className="w-full bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-orange-500/20">
-                    Рассчитать стоимость
-                  </button>
-                  
-                  <p className="text-sm text-gray-500 text-center">
-                    Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
-                  </p>
-                </div>
-              </div>
+ {/* Модальное окно с формой */}
+ {isFormOpen && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-2xl bg-gradient-to-br from-gray-900 to-black border border-orange-500/30 rounded-2xl max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={closeForm}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white z-10"
+            >
+              <XMarkIcon className="w-8 h-8" />
+            </button>
+            <div className="p-6 md:p-8">
+              <OrderForm 
+                selectedService={selectedService} 
+                onClose={closeForm} 
+              />
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Footer */}
-      
+      )}
     </div>
   );
 }

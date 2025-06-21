@@ -1,6 +1,7 @@
 // src/app/services/page.jsx
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   ShoppingCartIcon, 
   MagnifyingGlassIcon, 
@@ -10,6 +11,7 @@ import {
   BuildingStorefrontIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
+import TelegramOrderForm from '../(components)/OrderForm';
 
 // Define a type for services
 interface Service {
@@ -24,14 +26,9 @@ interface Service {
 export default function ServicesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    comment: ''
-  });
 
   // Основные услуги
-  const coreServices = [
+  const coreServices: Service[] = [
     {
       id: 1,
       title: "Выкуп товара",
@@ -63,7 +60,7 @@ export default function ServicesPage() {
   ];
 
   // Услуги доставки
-  const deliveryServices = [
+  const deliveryServices: Service[] = [
     {
       id: 5,
       title: "Авиадоставка",
@@ -106,38 +103,22 @@ export default function ServicesPage() {
     }
   ];
 
-  const openModal = (service: Service) => {
+  // Открываем форму с выбранной услугой
+  const openServiceForm = (service: Service) => {
     setSelectedService(service);
-    setFormData({
-      name: '',
-      phone: '',
-      comment: `Здравствуйте, хотел бы у вас заказать услугу: ${service.title}`
-    });
     setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
-  const closeModal = () => {
+  // Закрываем форму
+  const closeServiceForm = () => {
     setIsModalOpen(false);
     setSelectedService(null);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Здесь будет логика отправки формы
-    console.log('Form submitted:', formData);
-    closeModal();
-    // Можно добавить уведомление об успешной отправке
+    document.body.style.overflow = 'auto';
   };
 
   return (
-    
     <div className="min-h-screen bg-black text-white pt-20">
-        
       {/* Анимированный фон */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-[length:100px_100px] opacity-5"></div>
@@ -151,7 +132,7 @@ export default function ServicesPage() {
             Наши <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">услуги</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Полный спектр логистических услуг для вашего бизнеса. От поиска поставщиков до доставки до двери
+            Полный спектр логистических услуг для вашего бизнеса. От поиска поставщиков до доставки "до двери"
           </p>
         </div>
       </section>
@@ -169,8 +150,7 @@ export default function ServicesPage() {
               <ServiceCard 
                 key={service.id} 
                 service={service} 
-                onOrderClick={openModal} 
-                deliveryDays={undefined}
+                onOrderClick={openServiceForm} 
               />
             ))}
           </div>
@@ -192,7 +172,7 @@ export default function ServicesPage() {
               <ServiceCard 
                 key={service.id} 
                 service={service} 
-                onOrderClick={openModal} 
+                onOrderClick={openServiceForm} 
                 deliveryDays={service.days}
               />
             ))}
@@ -200,70 +180,22 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Модальное окно заказа */}
+      {/* Модальное окно с формой заказа */}
       {isModalOpen && selectedService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg">
-          <div className="relative bg-gradient-to-b from-gray-900 to-black border border-orange-900/50 rounded-2xl max-w-md w-full p-8">
-            <button 
-              onClick={closeModal}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white"
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-2xl bg-gradient-to-br from-gray-900 to-black border border-orange-500/30 rounded-2xl max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={closeServiceForm}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white z-10"
             >
-              <XMarkIcon className="w-6 h-6" />
+              <XMarkIcon className="w-8 h-8" />
             </button>
-            
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-2">Заказ услуги</h3>
-              <p className="text-orange-500 font-medium">{selectedService.title}</p>
+            <div className="p-6 md:p-8">
+              <TelegramOrderForm 
+                selectedService={selectedService}
+                onClose={closeServiceForm} 
+              />
             </div>
-            
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-gray-400 mb-2">Ваше имя</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                    placeholder="Иван Иванов"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-400 mb-2">Ваш телефон</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                    placeholder="+7 (___) ___-__-__"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-400 mb-2">Комментарий</label>
-                  <textarea
-                    name="comment"
-                    value={formData.comment}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-xl focus:border-orange-500 focus:outline-none"
-                  ></textarea>
-                </div>
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full mt-8 bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 py-4 rounded-xl font-bold transition-all duration-300"
-              >
-                Отправить заявку
-              </button>
-            </form>
           </div>
         </div>
       )}
