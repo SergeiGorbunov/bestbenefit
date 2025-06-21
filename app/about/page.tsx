@@ -2,12 +2,9 @@
 'use client';
 import React, { useState } from 'react';
 import { 
-  CheckCircleIcon,
-  MapPinIcon,
   GlobeAltIcon,
   ClockIcon,
   ShieldCheckIcon,
-  TruckIcon,
   UsersIcon,
   ChartBarIcon,
   ArrowPathIcon
@@ -15,7 +12,6 @@ import {
 import OrderForm from '../(components)/OrderForm';
 
 export default function AboutPage() {
-  const [activeTab, setActiveTab] = useState('history');
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const advantages = [
