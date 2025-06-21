@@ -3,6 +3,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Добавлен useEffect
 import OrderForm from "./OrderForm"; // Импортируем компонент формы
+import Image from "next/image";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +27,9 @@ const Header = () => {
     <header className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/90 border-b border-orange-900 py-4">
     <div className="container mx-auto px-4 flex justify-between items-center">
       <div className="flex items-center">
-        <div className="bg-orange-500 w-3 h-3 rounded-full mr-2 animate-pulse"></div>
+        <div className="bg-orange-500 w-10 h-10 p-1 rounded-full mr-2 animate-pulse">
+          <Image src="/images/logob.png" alt="logo" width={50} height={50}/>
+        </div>
         <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
           BEST BENEFIT
         </div>
