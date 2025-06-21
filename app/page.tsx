@@ -10,12 +10,12 @@ import OrderForm from './(components)/OrderForm';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    length: '',
-    width: '',
-    height: '',
-    weight: ''
-  });
+  // const [dimensions, setDimensions] = useState({
+  //   length: '',
+  //   width: '',
+  //   height: '',
+  //   weight: ''
+  // });
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<{ title: string; price: string; days: string; } | null>(null);
   
@@ -55,10 +55,10 @@ export default function Home() {
     setIsVisible(true);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setDimensions(prev => ({ ...prev, [name]: value }));
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setDimensions(prev => ({ ...prev, [name]: value }));
+  // };
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -355,7 +355,7 @@ export default function Home() {
                     <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center mr-3">
                       <span className="text-black text-xs">✓</span>
                     </div>
-                    <span>Доставка "до двери"</span>
+                    <span>Доставка до двери</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center mr-3">
