@@ -1,6 +1,9 @@
 {
   "name": "BEST BENEFIT",
   "short_name": "BestBenefit",
+  "description": "Логистика из Китая под ключ. Выкуп товара, доставка, таможенное оформление.",
+  "orientation": "portrait-primary",
+
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +18,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#000000",
   "background_color": "#000000",
+  "theme_color": "#f97316",
   "display": "standalone"
 }
