@@ -10,6 +10,7 @@ import {
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
 import OrderForm from '../(components)/OrderForm';
+import Image from 'next/image';
 
 export default function AboutPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -74,7 +75,7 @@ export default function AboutPage() {
     { value: "10+", label: "Лет на рынке" },
     { value: "5000+", label: "Успешных доставок" },
     { value: "98%", label: "Довольных клиентов" },
-    { value: "12", label: "Складов в Китае" }
+    { value: "На 40+%", label: "Выгоднее" }
   ];
 
   return (
@@ -108,7 +109,7 @@ export default function AboutPage() {
             <div className="relative aspect-video rounded-3xl overflow-hidden border-2 border-orange-500/30 mt-8 lg:mt-0"> {/* Добавлен отступ сверху для мобильных */}
               <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 to-black/70 backdrop-blur-sm flex items-center justify-center">
                 <div className="bg-orange-500/10 border-2 border-dashed border-orange-500/30 w-full h-full flex items-center justify-center">
-                  <span className="text-orange-500/50 font-mono text-sm">Image: BEST BENEFIT Team</span> {/* Уменьшен текст */}
+                    <Image src={"/images/about.png"} alt='about us' width={1000} height={1000} />
                 </div>
               </div>
               
@@ -118,7 +119,7 @@ export default function AboutPage() {
               </p>
               
               <p className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-gradient-to-r from-orange-600 to-orange-800 text-white font-bold py-1 px-2 md:py-2 md:px-4 text-sm md:text-base rounded-lg md:rounded-xl shadow-lg transform rotate-3 hover:rotate-0 transition-all duration-300 z-10">
-                🌏 12 складов
+                🌏 Технологичные склады
               </p>
             </div>
           </div>
