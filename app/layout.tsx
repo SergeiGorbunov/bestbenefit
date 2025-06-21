@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BEST BENEFIT",
   description: "Логистические услуги из Китая",
+  openGraph: {
+    type: "website",
+    title: "BEST BENEFIT",
+    images: "/images/main-image-car.png"
+  }  
 };
 
 export default function RootLayout({
@@ -25,7 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any"/>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
