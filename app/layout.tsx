@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BEST BENEFIT",
+  title: "VIPAZA CARGO",
   description: "Логистические услуги из Китая",
   openGraph: {
     type: "website",
-    title: "BEST BENEFIT",
-    images: "/images/main-image-car.png"
-  }  
+    title: "VIPAZA CARGO",
+    images: "/images/main-image-car.png",
+  },
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any"/>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#f97316" />
       </head>
